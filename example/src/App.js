@@ -12,10 +12,16 @@ export default class App extends Component {
 		// NOTE: The operator will seen to UI only if props isAllowOperator={true}
 		this.options = [
 			{
-				category: "Symbol",
+				category: "Table",
 				type: "textoptions",
 				operator: ["==", "!="],
-				options: this.getSymbolOptions
+				options: this.getTableOptions
+			},
+			{
+				category: "Operator",
+				type: "textoptions",
+				isAllowCustomValue: false,
+				options: ["with", "by"]
 			},
 			{
 				category: "Name",
@@ -23,38 +29,24 @@ export default class App extends Component {
 				isAllowDuplicateCategories: false,
 				operator: () => ["==", "!==", "containes"]
 			},
-			{ category: "Price", type: "number" },
-			{ category: "MarketCap", type: "number" },
-			{ category: "IPO", type: "date" },
-			{
-				category: "Sector",
-				type: "textoptions",
-				fuzzySearchKeyAttribute: "sectorName",
-				isAllowCustomValue: false,
-				isAllowDuplicateOptions: false,
-				options: this.getSectorOptions
-			},
-			{
-				category: "Industry",
-				type: "textoptions",
-				isAllowCustomValue: false,
-				options: this.getIndustryOptions
-			}
+			{ category: "From Date", type: "date" },
+			{ category: "To Date", type: "date" },
+			{ category: "Year", type: "number" },
 		];
 	}
 
 	/**
-	 * [getSymbolOptions Get the values using Ajax call]
+	 * [getTableOptions Get the values using Ajax call]
 	 * @return {[type]}
 	 */
-	getSymbolOptions = () => {
+	getTableOptions = () => {
 		if (this.state.SymbolData.length === 0) {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
-					this.setState({ SymbolData: ["TFSC", "PIL", "VNET"] }, () => {
+					this.setState({ SymbolData: ["Vulnerabilities", "Asset", "User"] }, () => {
 						return resolve(this.state.SymbolData);
 					});
-				}, 2000);
+				}, 100);
 			});
 		} else {
 			return this.state.SymbolData;
@@ -86,11 +78,7 @@ export default class App extends Component {
 		return (
 			<div className="container">
 				<ReactStructuredQuerySearch
-					defaultSelected={[
-						{ category: "Sector", value: { sectorName: "Finance", id: 1 } },
-						{ category: "Sector", value: { sectorName: "Consumer Services", id: 2 } },
-						{ category: "Industry", value: { name: "Other Specialty Stores", id: 2 } }
-					]}
+					defaultSelected={[ ]}
 					options={this.options}
 					//renderTokenItem={this.getTokenItem}
 					updateOptions={({ updatedValues, addedValue }) => {
@@ -113,3 +101,22 @@ export default class App extends Component {
 		);
 	}
 }
+/*
+			{ category: "Price", type: "number" },
+			{ category: "MarketCap", type: "number" },
+			{ category: "IPO", type: "date" },
+			{
+				category: "Sector",
+				type: "textoptions",
+				fuzzySearchKeyAttribute: "sectorName",
+				isAllowCustomValue: false,
+				isAllowDuplicateOptions: false,
+				options: this.getSectorOptions
+			},
+			{
+				category: "Industry",
+				type: "textoptions",
+				isAllowCustomValue: false,
+				options: this.getIndustryOptions
+			}
+*/
