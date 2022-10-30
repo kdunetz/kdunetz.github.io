@@ -32,7 +32,7 @@ You can use all the [react-typeahead](https://github.com/fmoo/react-typeahead), 
 npm install --save react-structured-query-search
 ```
 
-## Usage ([Example Code](https://github.com/kevalbhatt/react-structured-query-search/blob/master/example/src/App.js)) ([Demo](https://kevalbhatt.github.io/react-structured-query-search/))
+## Usage ([Example Code](https://github.com/kevalbhatt/react-structured-query-search/blob/master/example/src/App.js)) ([Demo](https://kdunetz.github.io/react-structured-query-search/))
 
 If you want to use `Tokenizer` then you either import as follows:
 
